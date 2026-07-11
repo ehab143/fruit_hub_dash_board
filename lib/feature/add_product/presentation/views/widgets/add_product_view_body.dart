@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fruits_hub_dashboard/core/widgets/custom_button.dart';
 import 'package:fruits_hub_dashboard/core/widgets/custom_text_form_field.dart';
+import 'package:fruits_hub_dashboard/feature/add_product/domain/enities/add_product_input_entity.dart';
 import 'package:fruits_hub_dashboard/feature/add_product/presentation/views/widgets/image_field.dart';
 import 'package:fruits_hub_dashboard/feature/add_product/presentation/views/widgets/is_featured_check_box.dart';
 
@@ -20,7 +21,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
 
   late String name, code, description;
   File? image;
-  bool? isFeatured = false;
+  bool isFeatured = false;
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +84,14 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                   if (image != null) {
                     if (formKey.currentState!.validate()) {
                       formKey.currentState!.save();
+                      AddProductInputEntity input = AddProductInputEntity(
+                        name: name,
+                        description: description,
+                        price: price,
+                        code: code,
+                        image: image!,
+                        isFeatured: isFeatured,
+                      );
                     } else {
                       autovalidateMode = AutovalidateMode.always;
                       setState(() {});
